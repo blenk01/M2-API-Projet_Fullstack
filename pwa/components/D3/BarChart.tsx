@@ -52,6 +52,7 @@ const BarChart = () => {
         .attr("height", height + margin.top + margin.bottom)
 
         const g = d3.select("#gContainer");
+        g.selectAll("rect").remove()
         g.attr("transform", `translate(${margin.left},     ${margin.top})`);
 
         var scaleX = d3.scaleTime().range([0, width]);
