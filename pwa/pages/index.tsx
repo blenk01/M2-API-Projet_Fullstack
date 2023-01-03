@@ -12,13 +12,14 @@ import "@fontsource/poppins";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import LineChart from "../components/D3/LineChart";
+import BarChart from "../components/D3/BarChart";
 
 const Welcome = () => (
   <div className="w-full overflow-x-hidden">
     <Head>
       <title>Welcome to API Platform!</title>
     </Head>
-    <LineChart />
+    <BarChart />
     <section className="w-full bg-spider-cover relative">
       <a
         href="https://les-tilleuls.coop/en"

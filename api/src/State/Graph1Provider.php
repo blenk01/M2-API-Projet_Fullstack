@@ -4,11 +4,8 @@ namespace App\State;
 
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\Pagination\TraversablePaginator;
 use ApiPlatform\State\ProviderInterface;
-use App\Entity\Graph1Data;
 use App\Repository\SaleRepository;
-use ArrayObject;
 
 class Graph1Provider implements ProviderInterface
 {
