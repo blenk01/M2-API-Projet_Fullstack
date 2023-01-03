@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\State\Graph1Provider;
+use DateTime;
 
 #[ApiResource()]
 #[GetCollection(
@@ -14,17 +15,17 @@ use App\State\Graph1Provider;
 )]
 class Graph1Data
 {
-    private ?string $datetime = null;
+    private ?DateTime $datetime = null;
     private ?float $value = null;
 
-    public function __construct(string $datetime, string $value)
+    public function __construct(DateTime $datetime, string $value)
     {
         $this->datetime = $datetime;
         $this->value = $value;
     }
 
     public function getDatetime(): string {
-        return $this->datetime;
+        return $this->datetime->format('d/m/Y');
     }
 
     public function getValue(): float {
