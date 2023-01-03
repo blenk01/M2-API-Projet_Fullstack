@@ -6,11 +6,10 @@ use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Repository\SaleRepository;
+use DateTime;
 
-class Graph1Provider implements ProviderInterface
+class Graph2Provider implements ProviderInterface
 {
-    private const NB_ITEMS_PER_PAGE = 30;
-
     private SaleRepository $saleRepository;
 
     public function __construct(SaleRepository $saleRepository)
@@ -23,8 +22,11 @@ class Graph1Provider implements ProviderInterface
         if ($operation instanceof CollectionOperationInterface) {
             $currentPage = $context["filters"]["page"] ?? 1;
             if ( $currentPage < 1 ) $currentPage = 1;
+
+            $startAt = DateTime::createFromFormat('d-m-Y', $context["filters"]["startAt"]) ?? new DateTime();
+            $endAt = DateTime::createFromFormat('d-m-Y', $context["filters"]["endAt"]) ?? new DateTime();
             
-            $sales = $this->saleRepository->getGraph1Data($currentPage, self::NB_ITEMS_PER_PAGE);
+            $sales = $this->saleRepository->getNbVenteFilterDates($startAt, $endAt);
 
             return $sales;
         }

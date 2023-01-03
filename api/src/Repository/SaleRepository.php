@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Graph1Data;
+use App\Entity\Graph2Data;
 use App\Entity\Sale;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,11 +43,24 @@ class SaleRepository extends ServiceEntityRepository
         }
     }
 
-    public function getGraph1Data(int $currentPage, int $limit) {
+    public function getGraph1Data() {
         return $this->createQueryBuilder('s')
             ->select(
                 sprintf('NEW %s(s.soldAt, AVG(s.value))', Graph1Data::class)
             )
+            ->groupBy('s.soldAt')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getNbVenteFilterDates(DateTime $startAt, DateTime $endAt) {
+        return $this->createQueryBuilder('s')
+            ->select(
+                sprintf('NEW %s(s.soldAt, COUNT(s.soldAt))', Graph2Data::class),
+            )
+            ->where('s.soldAt <= :endAt and s.soldAt >= :startAt')
+            ->setParameter('startAt', $startAt)
+            ->setParameter('endAt', $endAt)
             ->groupBy('s.soldAt')
             ->getQuery()
             ->getResult();
