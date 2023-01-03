@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SaleRepository::class)]
-#[ApiResource(mercure: true)]
+#[ApiResource()]
 #[Get()]
 #[GetCollection()]
 class Sale
