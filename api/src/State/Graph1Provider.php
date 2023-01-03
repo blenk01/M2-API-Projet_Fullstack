@@ -29,12 +29,7 @@ class Graph1Provider implements ProviderInterface
             
             $sales = $this->saleRepository->getGraph1Data($currentPage, self::NB_ITEMS_PER_PAGE);
 
-            return new TraversablePaginator(
-                $sales,    
-                $currentPage,
-                self::NB_ITEMS_PER_PAGE,
-                count($sales)
-            );
+            return $sales;
         }
 
         return null;

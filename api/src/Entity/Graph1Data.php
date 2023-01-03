@@ -9,7 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\State\Graph1Provider;
 use DateTime;
 
-#[ApiResource()]
+#[ApiResource(paginationEnabled: false)]
 #[GetCollection(
     provider: Graph1Provider::class
 )]
@@ -21,11 +21,11 @@ class Graph1Data
     public function __construct(DateTime $datetime, string $value)
     {
         $this->datetime = $datetime;
-        $this->value = $value;
+        $this->value = round($value, 2);
     }
 
     public function getDatetime(): string {
-        return $this->datetime->format('d/m/Y');
+        return $this->datetime->format('d-m-Y');
     }
 
     public function getValue(): float {

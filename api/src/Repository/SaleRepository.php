@@ -42,19 +42,12 @@ class SaleRepository extends ServiceEntityRepository
     }
 
     public function getGraph1Data(int $currentPage, int $limit) {
-        $query = $this->createQueryBuilder('s')
+        return $this->createQueryBuilder('s')
             ->select(
                 sprintf('NEW %s(s.soldAt, AVG(s.value))', Graph1Data::class)
             )
             ->groupBy('s.soldAt')
-            ->getQuery();
-        
-        $paginator = new Paginator($query, false);
-
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($currentPage - 1))
-            ->setMaxResults($limit);
-
-        return $paginator;
+            ->getQuery()
+            ->getResult();
     }
 }
