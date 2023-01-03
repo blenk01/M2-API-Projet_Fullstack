@@ -8,6 +8,9 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\SaleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: SaleRepository::class)]
 #[ApiResource()]
@@ -21,15 +24,21 @@ class Sale
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[NotNull]
     private ?\DateTimeInterface $soldAt = null;
 
     #[ORM\Column(length: 255)]
+    #[NotNull]
     private ?string $codeDepartement = null;
 
     #[ORM\Column]
+    #[NotNull]
+    #[Positive]
     private ?int $surface = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 18, scale: 2)]
+    #[NotNull]
+    #[Regex("\d+(.\d{1,2})")]
     private ?string $value = null;
 
     public function getId(): ?int
