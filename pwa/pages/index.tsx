@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import adminPicture from "../public/api-platform/admin.svg";
 import rocketPicture from "../public/api-platform/rocket.svg";
 import logo from "../public/api-platform/logo_api-platform.svg";
@@ -11,12 +11,14 @@ import apiPicture from "../public/api-platform/api.svg";
 import "@fontsource/poppins";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
+import LineChart from "../components/D3/LineChart";
 
 const Welcome = () => (
   <div className="w-full overflow-x-hidden">
     <Head>
       <title>Welcome to API Platform!</title>
     </Head>
+    <LineChart />
     <section className="w-full bg-spider-cover relative">
       <a
         href="https://les-tilleuls.coop/en"

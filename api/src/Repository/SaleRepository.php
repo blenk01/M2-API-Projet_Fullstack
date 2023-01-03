@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Graph1Data;
 use App\Entity\Sale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,5 +39,15 @@ class SaleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getGraph1Data(int $currentPage, int $limit) {
+        return $this->createQueryBuilder('s')
+            ->select(
+                sprintf('NEW %s(s.soldAt, AVG(s.value))', Graph1Data::class)
+            )
+            ->groupBy('s.soldAt')
+            ->getQuery()
+            ->getResult();
     }
 }
